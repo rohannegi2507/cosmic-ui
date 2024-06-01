@@ -14,3 +14,46 @@ export const IconBox = styled.div`
     justify-content:center;
     align-items:center;
 `
+
+type WidthProps = {
+    width?: number;
+};
+
+export const Wrapper = styled.div<WidthProps>`
+    position: relative;
+    width: ${(props) => (props.width ? `${props.width}px` : '180px')};
+  `;
+
+export const DropdownBox = styled.div<WidthProps>`
+    position: absolute;
+    z-index: 1;
+    border: 1px solid ${COLOR_VARIABLES.LIGHT_BORDER_COLOR};
+    width: ${(props) => (props.width ? `${props.width}px` : '180px')};
+    border-radius: 5px;
+  `;
+
+  export const Container = styled.div<WidthProps>`
+    width: ${(props) => (props.width ? `${props.width}px` : '180px')};
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid ${COLOR_VARIABLES.DARK_BORDER_COLOR};
+    &:hover {
+      border: 1px solid #38598b;
+    }
+    display: flex;
+    cursor: pointer;
+  `;
+
+  export const InputBox = styled.input<WidthProps>`
+    width: ${(props) => (props.width ? `${props.width}px` : '140px')};
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 16px;
+    border: none;
+    display: flex;
+    cursor: pointer;
+    &:focus-visible {
+      outline: none;
+    }
+  `;

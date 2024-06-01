@@ -7,3 +7,4 @@
 #Props
 1. options
 2. renderInput
+3. placeholder

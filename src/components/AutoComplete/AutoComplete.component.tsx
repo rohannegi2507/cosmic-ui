@@ -1,88 +1,120 @@
-import React, {  useState } from 'react'
-import styled from 'styled-components'
-import { COLOR_VARIABLES } from '../../constant'
-import { RiArrowDropDownLine } from "react-icons/ri";
-import { DropDownItem, IconBox } from './AutoComplete.style';
+import React, { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
+import { COLOR_VARIABLES } from '../../constant';
+import { Container, DropdownBox, DropDownItem, IconBox, InputBox, Wrapper } from './AutoComplete.style';
+import { IoIosArrowDown, IoIosSearch } from 'react-icons/io';
+import { debounce } from 'lodash';
 
 type OPTIONS_ITEM = {
-  label:string,
-  value:string|number,
-  id:string,
-}
+  label: string;
+  value: string;
+  id: string;
+};
 
-type Props = {
-    options: OPTIONS_ITEM[],
-    width?:number,
-}
+type AutoCompleteComponentProps = {
+  options: OPTIONS_ITEM[];
+  width?: number;
+  placeHolder?: string;
+};
 
-function AutoCompleteComponent({options,width }: Props) {
-  const [showDropDown, setShowDropdown] = useState(false)
-  const [selectedValue, setSelectedValue] = useState('')
+const WIDTH = 180;
 
-  const WIDTH = 150
+function AutoCompleteComponent({ options, width, placeHolder }: AutoCompleteComponentProps) {
+  const [showDropDown, setShowDropdown] = useState(false);
+  const [selectedValue, setSelectedValue] = useState('');
+  const [isSearchOn, setIsSearchOn] = useState(false);
+  const [searchText, setSearchText] = useState('');
+  const [filterData, setFilterData] = useState(options)
 
-  const Wrapper = styled.div`
-  position: relative;
-  width:${width ?  width : WIDTH}px;
-  `
+  const DisplayDropdown = () => {
+    const handleSelectedItem = (value: string) => {
+      setSelectedValue(value);
+    };
 
-  const DropdownBox =  styled.div`
-  position: absolute;
-  z-index:1;
-  border:1px solid ${COLOR_VARIABLES.LIGHT_BORDER_COLOR};
-  width:${width ?  width : WIDTH}px;
-  border-radius:5px;
-  `
+    return filterData.map((item: OPTIONS_ITEM) => {
+      return (
+        <DropDownItem
+          onClick={(e) => {
+            e.preventDefault();
+            handleSelectedItem(item.label);
+          }}
+          key={item.id}
+        >
+          {item.label}
+        </DropDownItem>
+      );
+    });
+  };
 
-  const Container = styled.div`
-  width:${width ?  width : WIDTH}px;
-  border-radius:5px;
-  padding:8px;
-  font-size:16px;
-  border:1px solid ${COLOR_VARIABLES.DARK_BORDER_COLOR};
-  &:hover {
-    border:1px solid #38598b;
-  }
-  display:flex;
-  `
+  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+    console.log("handlclick-container",  )
+    setShowDropdown((prevShowDropDown) => !prevShowDropDown);
+    setIsSearchOn((prevIsSearchOn) => !prevIsSearchOn);
+  };
 
-  const InputBox = styled.input`
-  width:${width ?  width : 120}px;
-  border-radius:5px;
-  padding:8px;
-  font-size:16px;
-  border:none;
-  display:flex;
-  &:focus-visible {
-    outline: none;
-  }
-  `
+  const handleChangeText = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(event.target.value);    
+  };
 
-  const DisplayDropdown =  ()=>{
-    const handleSelectedItem = (value:string)=> {
-      setSelectedValue(value)
-      
-      setShowDropdown(false)
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleFilterData = debounce(()=>{
+    const data = options.filter((option)=>{
+      return option.value.includes(searchText)
+    })
+
+    setFilterData(data)
+  })
+
+  useEffect(() => {  
+     inputRef.current?.focus();
+  }, []);
+
+  useEffect(()=>{
+   if(searchText.length > 0)
+   {
+     handleFilterData()
+
+      if(!showDropDown && !isSearchOn)
+      {
+       console.log("search-text") 
+       setShowDropdown(true)
+       setIsSearchOn(true)
+      }
+   }
+  }, [searchText])
+
+
+  useEffect(()=>{
+    if(selectedValue) {
+      //console.log("testing-selected-value", selectedValue)
+      setSearchText(selectedValue);
     }
 
-    return options.map((item:OPTIONS_ITEM)=>{
-      return <DropDownItem onClick={()=>{handleSelectedItem(item.label)}} key={item.id}>{item.label}</DropDownItem>
-    })
-  }
+  },[selectedValue])
 
   return (
     <Wrapper>
-      <Container onClick={()=>setShowDropdown(!showDropDown)}>
-        <InputBox value={selectedValue} ></InputBox>
-        <IconBox><RiArrowDropDownLine size={24}/></IconBox>
-        
+      <Container 
+        onClick={handleClick} 
+        tabIndex={0}>
+        <InputBox
+          placeholder={placeHolder || 'Select or Search'}
+          ref={inputRef}
+          onChange={handleChangeText}
+          value={searchText}
+        ></InputBox>
+        <IconBox>{!isSearchOn ? <IoIosArrowDown size={16} /> : <IoIosSearch size={16} />}</IconBox>
       </Container>
-    
-      {showDropDown && <DropdownBox className='dropdown-results-box'>
-        {DisplayDropdown() }
-      </DropdownBox> }
+
+      {showDropDown && (
+        <DropdownBox>
+          {DisplayDropdown()}
+        </DropdownBox>
+      )}
     </Wrapper>
-  )
+  );
 }
 
-export default AutoCompleteComponent
+export default AutoCompleteComponent;
