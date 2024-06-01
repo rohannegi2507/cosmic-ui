@@ -25,7 +25,9 @@
     "test": "react-scripts test --testPathIgnorePatterns=e2e",
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -58,9 +60,12 @@
     "@storybook/react-webpack5": "7.6.3",
     "@storybook/test": "7.6.3",
     "eslint-plugin-storybook": "^0.6.15",
+    "gh-pages": "^6.1.1",
     "playwright": "^1.40.1",
     "prop-types": "15.8.1",
     "storybook": "7.6.3",
     "webpack": "5.89.0"
-  }
+  },
+  "homepage": "https://rohannegi2507.github.io/cosmic-ui/"
+
 }
