@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, {  useState } from 'react'
 import styled from 'styled-components'
 import { COLOR_VARIABLES } from '../../constant'
 import { RiArrowDropDownLine } from "react-icons/ri";
@@ -9,6 +9,7 @@ type OPTIONS_ITEM = {
   value:string|number,
   id:string,
 }
+
 type Props = {
     options: OPTIONS_ITEM[],
     width?:number,

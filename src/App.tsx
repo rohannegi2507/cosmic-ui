@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import './App.css';
 import styled from 'styled-components';
@@ -7,8 +7,6 @@ import ContentView from './components/ContentView/ContentView';
 import Header from './components/Header/Header.component';
 
 function App() {
-  const [text, setText] = useState("");
-  
   const App = styled.div`
    height:100vh;
    position:relative;

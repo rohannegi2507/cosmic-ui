@@ -1,4 +1,4 @@
-import React, { createContext, useState, ReactNode, useContext } from 'react';
+import React, { createContext, useState, ReactNode } from 'react';
 import { COMPONENT_TYPE } from './constant';
 
 interface MyContextType {
