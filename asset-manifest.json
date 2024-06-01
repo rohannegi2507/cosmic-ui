@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/cosmic-ui/static/css/main.e6c13ad2.css",
-    "main.js": "/cosmic-ui/static/js/main.8d003040.js",
+    "main.css": "/cosmic-ui/static/css/main.0771348b.css",
+    "main.js": "/cosmic-ui/static/js/main.36adc29e.js",
     "static/js/787.9eb40c47.chunk.js": "/cosmic-ui/static/js/787.9eb40c47.chunk.js",
     "index.html": "/cosmic-ui/index.html",
-    "main.e6c13ad2.css.map": "/cosmic-ui/static/css/main.e6c13ad2.css.map",
-    "main.8d003040.js.map": "/cosmic-ui/static/js/main.8d003040.js.map",
+    "main.0771348b.css.map": "/cosmic-ui/static/css/main.0771348b.css.map",
+    "main.36adc29e.js.map": "/cosmic-ui/static/js/main.36adc29e.js.map",
     "787.9eb40c47.chunk.js.map": "/cosmic-ui/static/js/787.9eb40c47.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e6c13ad2.css",
-    "static/js/main.8d003040.js"
+    "static/css/main.0771348b.css",
+    "static/js/main.36adc29e.js"
   ]
 }
