@@ -1,25 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+
 import './App.css';
+import styled from 'styled-components';
+import LeftNavBar from './components/LeftNavBar';
+import ContentView from './components/ContentView/ContentView';
+import Header from './components/Header/Header.component';
 
 function App() {
+  const [text, setText] = useState("");
+  
+  const App = styled.div`
+   height:100vh;
+   position:relative;
+  `
+  const Main  = styled.main`
+  display:flex;
+  `
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <App className="App">
+      <Header />
+      <Main>
+        <LeftNavBar/>
+        <ContentView />
+      </Main>
+    </App>
   );
 }
 
