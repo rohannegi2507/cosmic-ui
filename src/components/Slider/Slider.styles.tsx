@@ -31,10 +31,16 @@ color: ${COLOR_VARIABLES.LIGHT_BORDER_COLOR};
 
 export const CardContainer = styled.div`
 border:1px solid #EEEEEE;
+display:flex;
+gap:8px;
 `
 
 export const Container = styled.div`
 display:flex;
 justify-content:space-between;
 align-items:center;
+`
+
+export const Img = styled.img`
+border:1px solid ${COLOR_VARIABLES.DARK_BORDER_COLOR};
 `

@@ -1,7 +1,10 @@
 export const COLOR_VARIABLES = {
     LIGHT_BORDER_COLOR: "#EEEEEE",
     DARK_BORDER_COLOR: "#00000040",
+    SELECTED_BG_COLOR: '#FEFFD2',
+    HOVER_BG_COLOR: '#EEEEEE',
     TEXT_PRIMARY_COLOR: "#FF5F00",
+    TEXT_SECONDARY_COLOR:"#373A40",
 }
 
 export type COMPONENT_TYPE = 'slider' | 'autocomplete'
@@ -12,10 +15,18 @@ export const items = [
      { id: "2", label: "Item2", value: "item2" },
      { id: "3", label: "Item3", value: "item3" }]
 
+export type COMPONENT_API = {
+    property:string,
+    description:string,
+    type:string,
+    default?:string | number;
+
+}
 export type COMPONENT_DATA = {
     title:string,
     description:string,
     component:JSX.Element,
+    componentAPI:COMPONENT_API[]
 }
 
 export const COMPONENT_NAME_TO_LABEL = {

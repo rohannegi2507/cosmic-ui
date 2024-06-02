@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { CardContainer, Container, StyledLeftIcon, StyledRightIcon } from './Slider.styles';
+import { CardContainer, Container, Img, StyledLeftIcon, StyledRightIcon } from './Slider.styles';
 
 type OPTIONS_ITEM = {
   src:string,
@@ -9,23 +9,35 @@ type OPTIONS_ITEM = {
 
 type SliderComponentProps = {
   options: OPTIONS_ITEM[],
+  itemsNo: number,
 }
 
-function SliderComponent({options }: SliderComponentProps) {
+function SliderComponent({options, itemsNo = 1}: SliderComponentProps) {
   const [currentInd, setCurrentInd] = useState(0)
 
   const handleMove = (move:string)=>{
     if(move === 'next'){
-      setCurrentInd(prevInd => prevInd === (options.length-1) ? 0 : prevInd+1)
-    } else {
-      setCurrentInd(prevInd => prevInd === 0 ? (options.length-1)  : prevInd-1)
+      setCurrentInd(prevInd => prevInd === (options.length - itemsNo) ? 0 : prevInd+1)
+    } else if (move === 'prev') {
+      setCurrentInd(prevInd => prevInd === 0 ? (options.length - itemsNo)  : prevInd-1)
     }
+  }
+
+  const generateCard = ()=>{
+    let imgCards = []
+
+    for(let i = 0 ;i < itemsNo ; i++){
+      imgCards.push(<Img src={options[currentInd + i].src} alt={options[currentInd + i].alt || ''}/>)
+    }
+    return imgCards
   }
    
   return (
     <Container>
         <StyledLeftIcon onClick={()=>handleMove("next")}/>
-          <CardContainer><img />  <img src={options[currentInd].src} alt={options[currentInd].alt || ''}/></CardContainer>
+          <CardContainer>
+            { generateCard() }
+          </CardContainer>
         <StyledRightIcon onClick={()=>handleMove("prev")}/>
     </Container>
   )

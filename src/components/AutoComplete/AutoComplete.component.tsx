@@ -29,6 +29,7 @@ function AutoCompleteComponent({ options, width, placeHolder }: AutoCompleteComp
   const DisplayDropdown = () => {
     const handleSelectedItem = (value: string) => {
       setSelectedValue(value);
+
     };
 
     return filterData.map((item: OPTIONS_ITEM) => {
@@ -39,6 +40,7 @@ function AutoCompleteComponent({ options, width, placeHolder }: AutoCompleteComp
             handleSelectedItem(item.label);
           }}
           key={item.id}
+          aria-selected={item.label === selectedValue}
         >
           {item.label}
         </DropDownItem>
@@ -74,14 +76,11 @@ function AutoCompleteComponent({ options, width, placeHolder }: AutoCompleteComp
   useEffect(()=>{
    if(searchText.length > 0)
    {
-     handleFilterData()
-
-      if(!showDropDown && !isSearchOn)
-      {
-       console.log("search-text") 
-       setShowDropdown(true)
-       setIsSearchOn(true)
-      }
+      // !showDropDown && handleFilterData()
+     !showDropDown  && setShowDropdown(true)
+     !isSearchOn && setIsSearchOn(true)
+   } else {
+    selectedValue && setSelectedValue('')
    }
   }, [searchText])
 
@@ -89,7 +88,9 @@ function AutoCompleteComponent({ options, width, placeHolder }: AutoCompleteComp
   useEffect(()=>{
     if(selectedValue) {
       //console.log("testing-selected-value", selectedValue)
-      setSearchText(selectedValue);
+      showDropDown &&  setShowDropdown(false);
+      isSearchOn &&  setIsSearchOn(false);
+      searchText &&  setSearchText('');
     }
 
   },[selectedValue])
@@ -103,7 +104,7 @@ function AutoCompleteComponent({ options, width, placeHolder }: AutoCompleteComp
           placeholder={placeHolder || 'Select or Search'}
           ref={inputRef}
           onChange={handleChangeText}
-          value={searchText}
+          value={searchText || selectedValue}
         ></InputBox>
         <IconBox>{!isSearchOn ? <IoIosArrowDown size={16} /> : <IoIosSearch size={16} />}</IconBox>
       </Container>

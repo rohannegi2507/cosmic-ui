@@ -12,8 +12,8 @@ const LeftNavBar = (props: Props) => {
     throw new Error('MyComponent must be used within a MyContextProvider');
   }
 
-  const { setValue } = context;
-  const Wrapper = styled.div`
+  const { value, setValue } = context;
+  const Wrapper = styled.nav`
     display:flex;
     flex-direction:column;
     gap:16px;
@@ -27,19 +27,22 @@ const LeftNavBar = (props: Props) => {
     cursor:pointer;
     font-weight:700;
     color: #686D76;
+    background-color: ${(props) => {
+      return props['aria-selected'] ? COLOR_VARIABLES.SELECTED_BG_COLOR : 'transparent'
+    }
+    };
+    border-radius:8px;
     &:hover {
-      background-color: #EEEEEE;
-      border-radius:8px;
+      background-color: :${COLOR_VARIABLES.HOVER_BG_COLOR};
       color:${COLOR_VARIABLES.TEXT_PRIMARY_COLOR};
     }
     `
-
 
     return componentList.map((item:COMPONENT_TYPE)=>{
         const handleClick  =  (item: COMPONENT_TYPE)=>{
           setValue(item)
         }
-        return <NavItem onClick={()=>handleClick(item)}>{COMPONENT_NAME_TO_LABEL[item]}</NavItem>
+        return <NavItem   aria-selected={value === item}  onClick={()=>handleClick(item)}>{COMPONENT_NAME_TO_LABEL[item]}</NavItem>
     })
   }
   return (

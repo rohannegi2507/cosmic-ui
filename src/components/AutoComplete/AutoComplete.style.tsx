@@ -4,6 +4,9 @@ import { COLOR_VARIABLES } from '../../constant'
 export const DropDownItem = styled.div`
     padding: 8px;
     border-bottom:1px solid ${COLOR_VARIABLES.LIGHT_BORDER_COLOR};
+    background-color: ${(props) => {
+      return props['aria-selected'] ? COLOR_VARIABLES.SELECTED_BG_COLOR : 'transparent'
+    }};
     &:hover {
     background-color: #e7eaf6;
     }
@@ -39,7 +42,7 @@ export const DropdownBox = styled.div<WidthProps>`
     font-size: 16px;
     border: 1px solid ${COLOR_VARIABLES.DARK_BORDER_COLOR};
     &:hover {
-      border: 1px solid #38598b;
+      border: 1px solid  ${COLOR_VARIABLES.TEXT_PRIMARY_COLOR};
     }
     display: flex;
     cursor: pointer;
